@@ -5,6 +5,7 @@ import connectDB from "./Database/config.js";
 import authRouter from "./Routers/authRouter.js";
 import userRouter from "./Routers/userRouter.js";
 
+
 dotenv.config();
 
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 // API routes
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+
 
 // Board Routes
 
