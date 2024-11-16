@@ -11,4 +11,4 @@ router.get('/get',getAllResorts)
 
 
 
-export default router
+export default router;

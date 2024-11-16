@@ -5,6 +5,8 @@ import connectDB from "./Database/config.js";
 import authRouter from "./Routers/authRouter.js";
 import userRouter from "./Routers/userRouter.js";
 import resortRouter from "./Routers/resortRouter.js";
+import cateringRouter from "./Routers/cateringRouter.js"
+import photographyRouter from "./Routers/photographyRouter.js"
 
 dotenv.config();
 
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/resort", resortRouter);
+app.use("/api/catering",cateringRouter)
+app.use("/api/photo",photographyRouter)
 
 // Board Routes
 
