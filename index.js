@@ -7,6 +7,7 @@ import userRouter from "./Routers/userRouter.js";
 import resortRouter from "./Routers/resortRouter.js";
 import cateringRouter from "./Routers/cateringRouter.js"
 import photographyRouter from "./Routers/photographyRouter.js"
+import makeupRouter from "./Routers/makeupRouter.js"
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.use("/api/user", userRouter);
 app.use("/api/resort", resortRouter);
 app.use("/api/catering",cateringRouter)
 app.use("/api/photo",photographyRouter)
+app.use("/api/makeup",makeupRouter)
 
 // Board Routes
 
