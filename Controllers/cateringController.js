@@ -93,29 +93,3 @@ export const bookCatering = async (req, res) => {
   }
 };
 
-export const getByIdCatering = async (req, res) => {
-  try {
-    const catering = await Catering.findById(req.params.id);
-    if (!catering) {
-      return res.status(404).json({ message: "Catering not found" });
-    }
-    res.status(200).json(catering);
-  } catch (error) {
-    res.status(500).json({ message: "Server error: " + err.message });
-  }
-};
-
-export const deleteCatering = async (req,res)=>{
-  const { id } = req.params;
-  try {
-    const catering = await Catering.findByIdAndDelete(id);
-    // console.log(catering);
-    if(!catering) 
-      return res.status(404).json({message: "Catering not found"});
-    res.status(200).json({ message: "Catering deleted successfully" });
-  } catch (error) {
-    return res
-    .status(500)
-    .json({ message: "Delete failed", data: error.message });
-  }
-}

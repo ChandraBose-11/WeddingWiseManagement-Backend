@@ -13,6 +13,4 @@ const router = express.Router();
 router.post("/createcatering", verifyToken, createCatering);
 router.get("/getcratering", getAllCatering);
 router.post("/book/:id",verifyToken, bookCatering);
-router.get("/getcratering/:id",getByIdCatering)
-router.delete("/deletecatering/:id",verifyToken,deleteCatering)
 export default router;
