@@ -1,5 +1,5 @@
 import Photography from "../Models/photographyModel.js";
-
+import User from "../Models/userModel.js";
 
 export const CreatePhotography = async (req,res)=>{
     if(!req.user.Admin){
@@ -43,3 +43,45 @@ export const getAllPhotography = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error in getResort" });
     }
   };
+
+  export const bookPhotography = async(req,res)=>{
+    const id = req.params.id;
+    const { eventDate } = req.body; 
+    try {
+      if (new Date(eventDate) <= Date.now()) {
+        return res.status(400).send({ message: "Date must not be a past date" });
+      }
+      const selectedPhotography = await Photography.findById({ _id: id });
+    const user = await User.findById(req.user.id);
+
+    const verifyDate = selectedPhotography.bookedOn.filter((dates) => {
+      return dates.date == eventDate;
+    });
+    if (verifyDate.length > 0) {
+      return res
+        .status(400)
+        .send({ message: "Photography already booked on that date" });
+    }
+    const verifyUser = selectedPhotography.bookedOn.filter((user) => {
+      return user.user == req.user.id;
+    });
+    console.log(verifyUser);
+    if (verifyUser.length > 0) {
+      return res.status(400).send({
+        message: "once previous booking is done then only you can book another",
+      });
+    }
+    selectedPhotography.bookedOn.push({ date: eventDate, user: req.user.id });
+    selectedPhotography.bookedBy.push(req.user.id);
+    await selectedPhotography.save();
+    // calculate budget
+    user.budgetSpent = selectedPhotography.price + user.budgetSpent;
+    user.budgetLeft = user.budgetLeft - selectedPhotography.price;
+    await user.save();
+    res.status(200).send({
+      message: "Booked successfully our Admin will contact you shortly",
+    });
+    } catch (error) {
+      res.status(500).send({ message: "server error: ", error: error.message });
+    }
+  }
