@@ -1,9 +1,7 @@
 import {
   bookCatering,
   createCatering,
-  deleteCatering,
   getAllCatering,
-  getByIdCatering,
 } from "../Controllers/cateringController.js";
 import { verifyToken } from "../Middleware/verifyToken.js";
 import express from "express";
