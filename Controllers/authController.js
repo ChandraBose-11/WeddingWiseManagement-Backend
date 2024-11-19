@@ -47,13 +47,10 @@ export const loginUser = async (req, res) => {
     if (!userDetail || !userPassword) {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
-    const token = jwt.sign(
-      { id: userDetail._id, Admin: userDetail.Admin },
-      process.env.JWT_SECRET_KEY
-    );
+    const token = jwt.sign({ id: userDetail._id }, process.env.JWT_SECRET_KEY);
 
     const { password: passkey, ...rest } = userDetail._doc;
-
+    
     res
       .status(200)
       .json({ message: "User LoggedIn Successfully", rest, token });
@@ -67,18 +64,17 @@ export const google = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (user) {
-      const token = jwt.sign(
-        { id: user._id, Admin: user.Admin },
-        process.env.JWT_SECRET_KEY
-      );
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
 
       const { password: passkey, ...rest } = user._doc;
 
-      res.status(200).json({
-        message: "User LoggedIn Successfully using Google",
-        rest,
-        token,
-      });
+      res
+        .status(200)
+        .json({
+          message: "User LoggedIn Successfully using Google",
+          rest,
+          token,
+        });
     } else {
       const generatePassword =
         Math.random().toString(36).slice(-8) +
@@ -93,18 +89,17 @@ export const google = async (req, res) => {
         profilePicture: profilePic,
       });
       await newUser.save();
-      const token = jwt.sign(
-        { id: newUser._id, Admin: newUser.Admin },
-        process.env.JWT_SECRET_KEY
-      );
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_KEY);
 
       const { password: passkey, ...rest } = newUser._doc;
 
-      res.status(200).json({
-        message: "User LoggedIn Successfully using Google",
-        rest,
-        token,
-      });
+      res
+        .status(200)
+        .json({
+          message: "User LoggedIn Successfully using Google",
+          rest,
+          token,
+        });
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error in Login User" });
