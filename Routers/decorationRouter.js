@@ -1,11 +1,11 @@
 import { bookDecor, createDecor, getAllDecor } from "../Controllers/decorationController.js";
-import { authUser } from "../Middleware/authMiddleware.js";
+import { verifyToken } from "../Middleware/verifyToken.js";
 import express from "express";
 
 const router = express.Router();
 
-router.post("/createdecor",authUser,createDecor);
+router.post("/createdecor",verifyToken,createDecor);
 router.get("/getdecor",getAllDecor)
-router.post("/book/:id",authUser,bookDecor);
+router.post("/book/:id",verifyToken,bookDecor);
 
 export default router;
