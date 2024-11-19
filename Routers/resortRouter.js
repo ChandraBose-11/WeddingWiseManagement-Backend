@@ -1,13 +1,13 @@
 
 import { bookResort, createResort, getAllResorts } from '../Controllers/resortContoller.js';
-import {verifyToken} from '../Middleware/verifyToken.js'
+import { authUser } from '../Middleware/authMiddleware.js';
 import express from 'express';
 
 const router = express.Router();
 
-router.post('/createresort',verifyToken,createResort)
+router.post('/createresort',authUser,createResort)
 router.get('/get',getAllResorts)
-router.post('/book/:id',verifyToken,bookResort)
+router.post('/book/:id',authUser,bookResort)
 
 
 
