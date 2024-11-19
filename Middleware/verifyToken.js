@@ -12,7 +12,7 @@ export const verifyToken = (req, res, next) => {
     req.user=verified
     next()
   }catch(e){
-     return res.status(500).json({message:"Invalid Token"})
+     return res.status(500).json({message:"Invalid Token",e:err.message})
   }
  
  
